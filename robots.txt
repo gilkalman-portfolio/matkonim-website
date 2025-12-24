@@ -1,0 +1,11 @@
+# robots.txt for matkunim.co.il
+# https://matkunim.co.il/robots.txt
+
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://matkunim.co.il/sitemap.xml
+
+# Crawl-delay (optional - be nice to search engines)
+Crawl-delay: 1
