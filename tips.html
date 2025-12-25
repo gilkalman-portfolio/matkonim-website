@@ -8,14 +8,19 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
     <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
-    <style>* { font-family: 'Heebo', sans-serif; }</style>
+    <link rel="stylesheet" href="/shared-styles.css">
+    <style>
+        * { font-family: 'Heebo', sans-serif; }
+        .card-hover { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        .card-hover:hover { transform: translateY(-4px); box-shadow: 0 20px 40px rgba(249, 115, 22, 0.15); }
+    </style>
 </head>
 <body class="bg-gradient-to-br from-amber-50 via-orange-50 to-rose-50 min-h-screen">
 
-    <!-- Header -->
+    <!-- Header - Matching index.html style -->
     <header class="sticky top-0 z-40 bg-white/80 backdrop-blur-xl border-b border-orange-100 shadow-sm">
         <div class="max-w-7xl mx-auto px-4 py-4">
-            <div class="flex items-center justify-between">
+            <div class="flex items-center justify-between gap-4">
                 <a href="/" class="flex items-center gap-3">
                     <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-orange-400 to-rose-500 flex items-center justify-center shadow-lg shadow-orange-200">
                         <svg class="w-7 h-7 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21a1 1 0 0 0 1-1v-5.35c0-.457.316-.844.727-1.041a4 4 0 0 0-2.134-7.589 5 5 0 0 0-9.186 0 4 4 0 0 0-2.134 7.588c.411.198.727.585.727 1.041V20a1 1 0 0 0 1 1Z"/><path d="M6 17h12"/></svg>
@@ -25,22 +30,57 @@
                         <p class="text-xs text-gray-500">מתכונים לכל רגע</p>
                     </div>
                 </a>
-                <nav class="flex gap-4">
-                    <a href="/" class="px-4 py-2 text-gray-600 hover:text-orange-600 font-medium transition-colors">מתכונים</a>
-                    <a href="/tips.html" class="px-4 py-2 text-orange-600 font-medium border-b-2 border-orange-500">טיפים</a>
-                    <a href="/conversions.html" class="px-4 py-2 text-gray-600 hover:text-orange-600 font-medium transition-colors">המרות</a>
-                    <a href="/about.html" class="px-4 py-2 text-gray-600 hover:text-orange-600 font-medium transition-colors">אודות</a>
+                <nav class="hidden md:flex gap-2">
+                    <a href="/" class="px-4 py-2 text-gray-600 hover:text-orange-600 font-medium transition-colors rounded-lg hover:bg-orange-50">🍳 מתכונים</a>
+                    <a href="/tips.html" class="px-4 py-2 bg-gradient-to-r from-orange-500 to-rose-500 text-white font-medium rounded-lg shadow-md">💡 טיפים</a>
+                    <a href="/conversions.html" class="px-4 py-2 text-gray-600 hover:text-orange-600 font-medium transition-colors rounded-lg hover:bg-orange-50">⚖️ המרות</a>
+                    <a href="/about.html" class="px-4 py-2 text-gray-600 hover:text-orange-600 font-medium transition-colors rounded-lg hover:bg-orange-50">ℹ️ אודות</a>
                 </nav>
+                <!-- Mobile menu button -->
+                <button class="md:hidden p-2 rounded-lg bg-gray-100" onclick="document.getElementById('mobileMenu').classList.toggle('hidden')">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                </button>
             </div>
+            <!-- Mobile Menu -->
+            <nav id="mobileMenu" class="hidden md:hidden mt-4 pb-2 border-t border-gray-100 pt-4">
+                <div class="flex flex-col gap-2">
+                    <a href="/" class="px-4 py-3 text-gray-600 hover:bg-orange-50 rounded-lg">🍳 מתכונים</a>
+                    <a href="/tips.html" class="px-4 py-3 bg-orange-100 text-orange-600 font-medium rounded-lg">💡 טיפים</a>
+                    <a href="/conversions.html" class="px-4 py-3 text-gray-600 hover:bg-orange-50 rounded-lg">⚖️ המרות</a>
+                    <a href="/about.html" class="px-4 py-3 text-gray-600 hover:bg-orange-50 rounded-lg">ℹ️ אודות</a>
+                </div>
+            </nav>
         </div>
     </header>
 
-    <!-- Hero -->
-    <section class="bg-gradient-to-r from-orange-500 to-rose-500 text-white py-16">
-        <div class="max-w-7xl mx-auto px-4 text-center">
-            <div class="text-6xl mb-4">💡</div>
+    <!-- Hero - Modern gradient with pattern -->
+    <section class="relative bg-gradient-to-br from-orange-500 via-rose-500 to-purple-500 text-white py-16 overflow-hidden">
+        <div class="absolute inset-0 opacity-10">
+            <div class="absolute inset-0" style="background-image: url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'0.4\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');"></div>
+        </div>
+        <div class="max-w-7xl mx-auto px-4 text-center relative">
+            <div class="inline-flex items-center gap-2 px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full text-sm mb-6">
+                <span>🏠</span>
+                <a href="/" class="hover:underline">דף הבית</a>
+                <span>←</span>
+                <span>טיפים במטבח</span>
+            </div>
+            <div class="w-20 h-20 mx-auto mb-6 rounded-2xl bg-white/20 backdrop-blur-sm flex items-center justify-center text-5xl">💡</div>
             <h1 class="text-4xl md:text-5xl font-black mb-4">טיפים במטבח</h1>
-            <p class="text-xl text-white/90">סודות וטריקים שיהפכו אתכם לשפים טובים יותר</p>
+            <p class="text-xl text-white/90 max-w-2xl mx-auto">סודות וטריקים שיהפכו אתכם לשפים טובים יותר</p>
+
+            <!-- Quick Stats -->
+            <div class="flex flex-wrap justify-center gap-6 mt-8">
+                <div class="px-6 py-3 bg-white/10 backdrop-blur-sm rounded-full">
+                    <span class="font-bold">6</span> קטגוריות מרכיבים
+                </div>
+                <div class="px-6 py-3 bg-white/10 backdrop-blur-sm rounded-full">
+                    <span class="font-bold">10</span> החלפות מרכיבים
+                </div>
+                <div class="px-6 py-3 bg-white/10 backdrop-blur-sm rounded-full">
+                    <span class="font-bold">8</span> טיפים מהירים
+                </div>
+            </div>
         </div>
     </section>
 
@@ -49,69 +89,72 @@
         
         <!-- בחירת מרכיבים -->
         <section class="mb-16">
-            <div class="flex items-center gap-3 mb-8">
-                <span class="text-4xl">🥬</span>
-                <h2 class="text-3xl font-bold text-gray-800">איך לבחור מרכיבים טריים</h2>
+            <div class="flex items-center gap-4 mb-8">
+                <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-green-100 to-emerald-100 flex items-center justify-center text-3xl shadow-sm">🥬</div>
+                <div>
+                    <h2 class="text-2xl md:text-3xl font-bold text-gray-800">איך לבחור מרכיבים טריים</h2>
+                    <p class="text-gray-500 text-sm">6 מרכיבים נפוצים</p>
+                </div>
             </div>
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-lg transition-all">
+                <div class="card-hover bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
                     <div class="text-3xl mb-3">🍅</div>
                     <h3 class="text-xl font-bold text-gray-800 mb-2">עגבניות</h3>
                     <ul class="text-gray-600 space-y-2">
-                        <li>✓ בחרו עגבניות עם צבע אחיד ועמוק</li>
-                        <li>✓ העגבנייה צריכה להיות מוצקה אך נענית ללחיצה קלה</li>
-                        <li>✓ ריח חזק ליד הגבעול = בשלות מושלמת</li>
-                        <li>✗ הימנעו מעגבניות עם כתמים או קמטים</li>
+                        <li class="flex items-start gap-2"><span class="text-green-500">✓</span> בחרו עגבניות עם צבע אחיד ועמוק</li>
+                        <li class="flex items-start gap-2"><span class="text-green-500">✓</span> העגבנייה צריכה להיות מוצקה אך נענית ללחיצה קלה</li>
+                        <li class="flex items-start gap-2"><span class="text-green-500">✓</span> ריח חזק ליד הגבעול = בשלות מושלמת</li>
+                        <li class="flex items-start gap-2"><span class="text-red-500">✗</span> הימנעו מעגבניות עם כתמים או קמטים</li>
                     </ul>
                 </div>
-                <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-lg transition-all">
+                <div class="card-hover bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
                     <div class="text-3xl mb-3">🥑</div>
                     <h3 class="text-xl font-bold text-gray-800 mb-2">אבוקדו</h3>
                     <ul class="text-gray-600 space-y-2">
-                        <li>✓ לחצו קלות - אבוקדו בשל נענה ללחיצה</li>
-                        <li>✓ הסירו את הפיטם - ירוק = בשל, חום = מוכן מדי</li>
-                        <li>✓ צבע כהה יותר = יותר בשל</li>
-                        <li>💡 לא בשל? שימו עם בננה בשקית נייר</li>
+                        <li class="flex items-start gap-2"><span class="text-green-500">✓</span> לחצו קלות - אבוקדו בשל נענה ללחיצה</li>
+                        <li class="flex items-start gap-2"><span class="text-green-500">✓</span> הסירו את הפיטם - ירוק = בשל, חום = מוכן מדי</li>
+                        <li class="flex items-start gap-2"><span class="text-green-500">✓</span> צבע כהה יותר = יותר בשל</li>
+                        <li class="flex items-start gap-2"><span class="text-amber-500">💡</span> לא בשל? שימו עם בננה בשקית נייר</li>
                     </ul>
                 </div>
-                <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-lg transition-all">
+                <div class="card-hover bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
                     <div class="text-3xl mb-3">🍋</div>
                     <h3 class="text-xl font-bold text-gray-800 mb-2">לימונים</h3>
                     <ul class="text-gray-600 space-y-2">
-                        <li>✓ בחרו לימונים כבדים ביחס לגודלם</li>
-                        <li>✓ קליפה דקה = יותר מיץ</li>
-                        <li>✓ צבע צהוב עז ואחיד</li>
-                        <li>💡 גלגלו על השיש לפני סחיטה - מוציא יותר מיץ</li>
+                        <li class="flex items-start gap-2"><span class="text-green-500">✓</span> בחרו לימונים כבדים ביחס לגודלם</li>
+                        <li class="flex items-start gap-2"><span class="text-green-500">✓</span> קליפה דקה = יותר מיץ</li>
+                        <li class="flex items-start gap-2"><span class="text-green-500">✓</span> צבע צהוב עז ואחיד</li>
+                        <li class="flex items-start gap-2"><span class="text-amber-500">💡</span> גלגלו על השיש לפני סחיטה - מוציא יותר מיץ</li>
                     </ul>
                 </div>
-                <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-lg transition-all">
+                <div class="card-hover bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
                     <div class="text-3xl mb-3">🧅</div>
                     <h3 class="text-xl font-bold text-gray-800 mb-2">בצל</h3>
                     <ul class="text-gray-600 space-y-2">
-                        <li>✓ קליפה יבשה ונקייה</li>
-                        <li>✓ מוצק ללא נקודות רכות</li>
-                        <li>✓ ללא ריח חזק (סימן לריקבון)</li>
-                        <li>💡 שמרו במקום קר, יבש ואוורירי</li>
+                        <li class="flex items-start gap-2"><span class="text-green-500">✓</span> קליפה יבשה ונקייה</li>
+                        <li class="flex items-start gap-2"><span class="text-green-500">✓</span> מוצק ללא נקודות רכות</li>
+                        <li class="flex items-start gap-2"><span class="text-green-500">✓</span> ללא ריח חזק (סימן לריקבון)</li>
+                        <li class="flex items-start gap-2"><span class="text-amber-500">💡</span> שמרו במקום קר, יבש ואוורירי</li>
                     </ul>
                 </div>
-                <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-lg transition-all">
+                <div class="card-hover bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
                     <div class="text-3xl mb-3">🥒</div>
                     <h3 class="text-xl font-bold text-gray-800 mb-2">מלפפונים</h3>
                     <ul class="text-gray-600 space-y-2">
-                        <li>✓ צבע ירוק כהה ואחיד</li>
-                        <li>✓ מוצקים לאורך כל הירק</li>
-                        <li>✓ ללא כתמים צהובים</li>
-                        <li>💡 שמרו במגירת הירקות עטופים</li>
+                        <li class="flex items-start gap-2"><span class="text-green-500">✓</span> צבע ירוק כהה ואחיד</li>
+                        <li class="flex items-start gap-2"><span class="text-green-500">✓</span> מוצקים לאורך כל הירק</li>
+                        <li class="flex items-start gap-2"><span class="text-green-500">✓</span> ללא כתמים צהובים</li>
+                        <li class="flex items-start gap-2"><span class="text-amber-500">💡</span> שמרו במגירת הירקות עטופים</li>
                     </ul>
                 </div>
-                <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-lg transition-all">
+                <div class="card-hover bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
                     <div class="text-3xl mb-3">🍗</div>
                     <h3 class="text-xl font-bold text-gray-800 mb-2">עוף טרי</h3>
                     <ul class="text-gray-600 space-y-2">
-                        <li>✓ צבע ורוד בהיר, לא אפור</li>
-                        <li>✓ ריח ניטרלי, לא חמצמץ</li>
-                        <li>✓ עור לח אך לא דביק</li>
-                        <li>💡 בדקו תאריך תפוגה תמיד!</li>
+                        <li class="flex items-start gap-2"><span class="text-green-500">✓</span> צבע ורוד בהיר, לא אפור</li>
+                        <li class="flex items-start gap-2"><span class="text-green-500">✓</span> ריח ניטרלי, לא חמצמץ</li>
+                        <li class="flex items-start gap-2"><span class="text-green-500">✓</span> עור לח אך לא דביק</li>
+                        <li class="flex items-start gap-2"><span class="text-amber-500">💡</span> בדקו תאריך תפוגה תמיד!</li>
                     </ul>
                 </div>
             </div>
@@ -119,20 +162,24 @@
 
         <!-- החלפות מרכיבים -->
         <section class="mb-16">
-            <div class="flex items-center gap-3 mb-8">
-                <span class="text-4xl">🔄</span>
-                <h2 class="text-3xl font-bold text-gray-800">החלפות מרכיבים</h2>
+            <div class="flex items-center gap-4 mb-8">
+                <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-100 to-cyan-100 flex items-center justify-center text-3xl shadow-sm">🔄</div>
+                <div>
+                    <h2 class="text-2xl md:text-3xl font-bold text-gray-800">החלפות מרכיבים</h2>
+                    <p class="text-gray-500 text-sm">חסר לכם משהו? יש פתרון!</p>
+                </div>
             </div>
-            <div class="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100">
-                <table class="w-full">
-                    <thead class="bg-gradient-to-r from-orange-500 to-rose-500 text-white">
-                        <tr>
-                            <th class="px-6 py-4 text-right font-bold">חסר לכם</th>
-                            <th class="px-6 py-4 text-right font-bold">החליפו ב...</th>
-                            <th class="px-6 py-4 text-right font-bold">הערות</th>
-                        </tr>
-                    </thead>
-                    <tbody class="divide-y divide-gray-100">
+            <div class="bg-white rounded-3xl overflow-hidden shadow-lg border border-gray-100">
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead class="bg-gradient-to-r from-orange-500 to-rose-500 text-white">
+                            <tr>
+                                <th class="px-6 py-4 text-right font-bold">חסר לכם</th>
+                                <th class="px-6 py-4 text-right font-bold">החליפו ב...</th>
+                                <th class="px-6 py-4 text-right font-bold hidden md:table-cell">הערות</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-100">
                         <tr class="hover:bg-orange-50 transition-colors">
                             <td class="px-6 py-4 font-medium">1 כוס חלב</td>
                             <td class="px-6 py-4">1 כוס יוגורט + מים / חלב שקדים</td>
