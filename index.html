@@ -614,6 +614,10 @@ function render() {
                         <p class="text-xs text-gray-500">מתכונים לכל רגע</p>
                     </div>
                 </div>
+                <nav class="hidden md:flex gap-2">
+                    <a href="/tips.html" class="px-3 py-2 text-gray-600 hover:text-orange-600 text-sm font-medium transition-colors">💡 טיפים</a>
+                    <a href="/conversions.html" class="px-3 py-2 text-gray-600 hover:text-orange-600 text-sm font-medium transition-colors">⚖️ המרות</a>
+                </nav>
                 <div class="flex-1 max-w-md min-w-[200px] relative">
                     <svg class="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
                     <input id="search" type="text" placeholder="חיפוש מתכונים..." value="${state.q}" class="w-full pr-12 pl-4 py-3 rounded-2xl bg-gray-50 border border-gray-200 focus:border-orange-400 outline-none text-gray-700">
@@ -719,7 +723,12 @@ function render() {
                 <svg class="w-6 h-6 text-orange-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21a1 1 0 0 0 1-1v-5.35c0-.457.316-.844.727-1.041a4 4 0 0 0-2.134-7.589 5 5 0 0 0-9.186 0 4 4 0 0 0-2.134 7.588c.411.198.727.585.727 1.041V20a1 1 0 0 0 1 1Z"/><path d="M6 17h12"/></svg>
                 <span class="text-xl font-bold text-gray-800">טעם של בית</span>
             </div>
-            <p class="text-gray-500 text-sm">מתכונים לכל רגע - אוסף מתכונים ביתיים טעימים</p>
+            <p class="text-gray-500 text-sm">מתכונים לכל רגע</p>
+            <div class="flex justify-center gap-4 mt-4">
+                <a href="/" class="text-gray-400 hover:text-orange-500">מתכונים</a>
+                <a href="/tips.html" class="text-gray-400 hover:text-orange-500">טיפים</a>
+                <a href="/conversions.html" class="text-gray-400 hover:text-orange-500">המרות</a>
+            </div>
             <p class="text-gray-400 text-xs mt-4">© 2024 כל הזכויות שמורות</p>
         </div>
     </footer>`;
