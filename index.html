@@ -597,7 +597,8 @@ let state = {
     showFilter: false,
     showHero: true,
     visibleCount: 8,
-    activeTab: 'ingredients'
+    activeTab: 'ingredients',
+    servings: null // for serving calculator
 };
 
 // Get recipe of the day based on date
@@ -645,6 +646,110 @@ function copyLink(recipe) {
     navigator.clipboard.writeText(window.location.href).then(() => {
         showToast('הקישור הועתק! 📋');
     });
+}
+
+// Print recipe function
+function printRecipe(recipe) {
+    const printWindow = window.open('', '_blank');
+    const servings = state.servings || recipe.srv;
+    const ratio = servings / recipe.srv;
+
+    printWindow.document.write(`
+        <!DOCTYPE html>
+        <html lang="he" dir="rtl">
+        <head>
+            <meta charset="UTF-8">
+            <title>${recipe.title} - מתכון להדפסה</title>
+            <style>
+                * { font-family: 'Arial', sans-serif; }
+                body { padding: 20px; max-width: 800px; margin: 0 auto; }
+                h1 { color: #ea580c; margin-bottom: 5px; }
+                .subtitle { color: #666; margin-bottom: 20px; }
+                .meta { display: flex; gap: 20px; padding: 15px 0; border-bottom: 2px solid #ea580c; margin-bottom: 20px; }
+                .meta span { display: flex; align-items: center; gap: 5px; }
+                h2 { color: #333; border-bottom: 1px solid #ddd; padding-bottom: 10px; }
+                ul { padding-right: 20px; }
+                li { margin-bottom: 8px; line-height: 1.6; }
+                ol li { margin-bottom: 12px; }
+                .tips { background: #fff7ed; padding: 15px; border-radius: 8px; margin-top: 20px; }
+                .tips p { margin: 5px 0; }
+                .footer { margin-top: 30px; text-align: center; color: #999; font-size: 12px; border-top: 1px solid #ddd; padding-top: 15px; }
+                @media print { body { padding: 0; } }
+            </style>
+        </head>
+        <body>
+            <h1>${recipe.title}</h1>
+            <p class="subtitle">${recipe.subtitle || ''}</p>
+            <div class="meta">
+                <span>⏱️ ${recipe.totalTime}</span>
+                <span>👥 ${servings} מנות</span>
+                <span>📊 ${recipe.diff}</span>
+            </div>
+            <h2>מצרכים</h2>
+            <ul>
+                ${recipe.ingr.map(i => {
+                    if (ratio !== 1) {
+                        return `<li>${scaleIngredient(i, ratio)}</li>`;
+                    }
+                    return `<li>${i}</li>`;
+                }).join('')}
+            </ul>
+            <h2>אופן ההכנה</h2>
+            <ol>
+                ${recipe.inst.map(s => `<li>${s}</li>`).join('')}
+            </ol>
+            ${recipe.tips && recipe.tips.length ? `
+            <div class="tips">
+                <h3>💡 טיפים</h3>
+                ${recipe.tips.map(t => `<p>${t}</p>`).join('')}
+            </div>
+            ` : ''}
+            <div class="footer">
+                מתכון מאתר "טעם של בית" | matkunim.co.il
+            </div>
+        </body>
+        </html>
+    `);
+    printWindow.document.close();
+    printWindow.print();
+}
+
+// Scale ingredient quantities
+function scaleIngredient(ingredient, ratio) {
+    // Match numbers (including fractions like ½, ¼, ¾)
+    const fractionMap = { '½': 0.5, '¼': 0.25, '¾': 0.75, '⅓': 0.33, '⅔': 0.67 };
+
+    return ingredient.replace(/(\d+\.?\d*|[½¼¾⅓⅔])/g, (match) => {
+        if (fractionMap[match]) {
+            const result = fractionMap[match] * ratio;
+            return formatNumber(result);
+        }
+        const num = parseFloat(match);
+        if (!isNaN(num)) {
+            const result = num * ratio;
+            return formatNumber(result);
+        }
+        return match;
+    });
+}
+
+// Format number nicely
+function formatNumber(num) {
+    if (num === Math.floor(num)) return num.toString();
+    if (Math.abs(num - 0.25) < 0.05) return '¼';
+    if (Math.abs(num - 0.5) < 0.05) return '½';
+    if (Math.abs(num - 0.75) < 0.05) return '¾';
+    if (Math.abs(num - 0.33) < 0.05) return '⅓';
+    if (Math.abs(num - 0.67) < 0.05) return '⅔';
+    return num.toFixed(1).replace('.0', '');
+}
+
+// Get scaled ingredients for display
+function getScaledIngredients(recipe) {
+    const servings = state.servings || recipe.srv;
+    const ratio = servings / recipe.srv;
+    if (ratio === 1) return recipe.ingr;
+    return recipe.ingr.map(i => scaleIngredient(i, ratio));
 }
 
 function saveFavs() {
@@ -878,6 +983,9 @@ function render() {
 }
 
 function renderModal(r) {
+    const currentServings = state.servings || r.srv;
+    const scaledIngredients = getScaledIngredients(r);
+
     return `
     <div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm" id="modalOverlay">
         <div class="bg-white rounded-3xl max-w-4xl w-full max-h-[90vh] overflow-hidden shadow-2xl flex flex-col" onclick="event.stopPropagation()">
@@ -892,6 +1000,9 @@ function renderModal(r) {
                         <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
                     </button>
                     <div class="flex gap-2">
+                        <button onclick="printRecipe(recipes.find(r=>r.id==${r.id}))" class="share-btn w-10 h-10 rounded-full bg-blue-500 text-white flex items-center justify-center shadow-lg" title="הדפס מתכון">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
+                        </button>
                         <button onclick="shareWhatsApp(recipes.find(r=>r.id==${r.id}))" class="share-btn w-10 h-10 rounded-full bg-green-500 text-white flex items-center justify-center shadow-lg" title="שתף בוואטסאפ">
                             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
                         </button>
@@ -920,9 +1031,14 @@ function renderModal(r) {
                             <svg class="w-4 h-4 text-blue-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
                             <span class="text-gray-600">${r.totalTime}</span>
                         </span>
-                        <span class="flex items-center gap-1.5 px-3 py-1.5 bg-green-50 rounded-lg text-sm">
+                        <!-- Serving Calculator -->
+                        <span class="flex items-center gap-1.5 px-2 py-1 bg-green-50 rounded-lg text-sm">
                             <svg class="w-4 h-4 text-green-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
-                            <span class="text-gray-600">${r.srv} מנות</span>
+                            <button id="servingMinus" class="w-6 h-6 rounded-full bg-green-200 hover:bg-green-300 flex items-center justify-center text-green-700 font-bold transition-colors">−</button>
+                            <span class="text-gray-700 font-bold min-w-[2ch] text-center" id="servingCount">${currentServings}</span>
+                            <button id="servingPlus" class="w-6 h-6 rounded-full bg-green-200 hover:bg-green-300 flex items-center justify-center text-green-700 font-bold transition-colors">+</button>
+                            <span class="text-gray-600">מנות</span>
+                            ${currentServings !== r.srv ? `<button id="resetServings" class="text-xs text-green-600 hover:underline mr-1">(איפוס)</button>` : ''}
                         </span>
                         <span class="flex items-center gap-1.5 px-3 py-1.5 bg-purple-50 rounded-lg text-sm">
                             <span class="font-medium ${r.diff === 'קל' ? 'text-green-600' : r.diff === 'בינוני' ? 'text-yellow-600' : 'text-red-600'}">${r.diff}</span>
@@ -948,9 +1064,10 @@ function renderModal(r) {
                             <svg class="w-4 h-4 text-orange-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
                         </span>
                         מצרכים (${r.ingr.length})
+                        ${currentServings !== r.srv ? `<span class="text-sm font-normal text-orange-500 mr-2">מותאם ל-${currentServings} מנות</span>` : ''}
                     </div>
                     <div class="grid sm:grid-cols-2 gap-2">
-                        ${r.ingr.map((i, idx) => `
+                        ${scaledIngredients.map((i, idx) => `
                         <label class="flex items-center gap-3 p-3 bg-gray-50 rounded-xl cursor-pointer hover:bg-orange-50 transition-colors group">
                             <input type="checkbox" class="w-5 h-5 rounded border-gray-300 text-orange-500 focus:ring-orange-500">
                             <span class="text-gray-700 group-hover:text-gray-900">${i}</span>
@@ -1009,10 +1126,33 @@ function addEvents() {
     document.getElementById("resetBtn")?.addEventListener("click", () => { state = { ...state, cat: "הכל", ing: "הכל", diet: "הכל", diff: "הכל", q: "", showFav: false, visibleCount: 8 }; render(); });
     document.getElementById("showAll")?.addEventListener("click", () => { state = { ...state, cat: "הכל", ing: "הכל", diet: "הכל", diff: "הכל", q: "", showFav: false, visibleCount: 8 }; render(); });
     document.getElementById("loadMore")?.addEventListener("click", () => { state.visibleCount += 8; render(); });
-    document.querySelectorAll(".recipe-card").forEach(c => c.addEventListener("click", e => { if (!e.target.closest(".fav-btn")) { state.modal = recipes.find(r => r.id == c.dataset.id); state.activeTab = 'ingredients'; render(); } }));
+    document.querySelectorAll(".recipe-card").forEach(c => c.addEventListener("click", e => { if (!e.target.closest(".fav-btn")) { state.modal = recipes.find(r => r.id == c.dataset.id); state.activeTab = 'ingredients'; state.servings = null; render(); } }));
     document.querySelectorAll(".fav-btn").forEach(b => b.addEventListener("click", e => { e.stopPropagation(); toggleFav(parseInt(b.dataset.id)); }));
     document.querySelectorAll(".modal-fav").forEach(b => b.addEventListener("click", () => toggleFav(parseInt(b.dataset.id))));
     document.querySelectorAll(".modal-tab").forEach(t => t.addEventListener("click", () => { state.activeTab = t.dataset.tab; render(); }));
+    // Serving calculator events
+    document.getElementById("servingMinus")?.addEventListener("click", () => {
+        const recipe = state.modal;
+        if (!recipe) return;
+        const current = state.servings || recipe.srv;
+        if (current > 1) {
+            state.servings = current - 1;
+            render();
+        }
+    });
+    document.getElementById("servingPlus")?.addEventListener("click", () => {
+        const recipe = state.modal;
+        if (!recipe) return;
+        const current = state.servings || recipe.srv;
+        if (current < 50) {
+            state.servings = current + 1;
+            render();
+        }
+    });
+    document.getElementById("resetServings")?.addEventListener("click", () => {
+        state.servings = null;
+        render();
+    });
     document.getElementById("closeModal")?.addEventListener("click", () => { state.modal = null; render(); });
     document.getElementById("modalOverlay")?.addEventListener("click", e => { if (e.target.id === "modalOverlay") { state.modal = null; render(); } });
     document.addEventListener("keydown", e => { if (e.key === "Escape" && state.modal) { state.modal = null; render(); } });
