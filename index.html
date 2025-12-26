@@ -837,95 +837,10 @@ const recipes = [
     }
 ];
 
-// New recipes 46-60
+// New recipes 46-53 (unique recipes only)
 const newRecipes = [
     {
         id: 46,
-        title: "קובה חמוסטה",
-        subtitle: "קובה עיראקית במרק סלק חמצמץ",
-        cat: "מרקים",
-        ing: "בשר טחון",
-        diet: [],
-        prepTime: "45 דקות",
-        cookTime: "40 דקות",
-        totalTime: "85 דקות",
-        srv: 6,
-        diff: "מאתגר",
-        img: "https://images.unsplash.com/photo-1547592166-23ac45744acd?w=800",
-        ingr: ["500 גרם בשר טחון", "2 כוסות סולת", "1 כוס קמח", "3 סלקים גדולים", "1 כוס עלי סלק", "½ כוס מיץ לימון", "¼ כוס סוכר", "בצל מטוגן", "שמן לטיגון", "מלח ופלפל"],
-        inst: ["מערבבים סולת, קמח ומים לבצק.", "ממלאים בבשר מתובל עם בצל מטוגן.", "מבשלים סלקים במים עד ריכוך.", "מוסיפים לימון וסוכר למרק.", "מבשלים את הקובות במרק 20 דקות.", "מגישים חם עם עלי סלק."],
-        tips: ["💡 המרק צריך להיות חמצמץ-מתוק", "💡 אפשר להקפיא את הקובות"]
-    },
-    {
-        id: 47,
-        title: "מלווח תימני",
-        subtitle: "לחם שכבות פריך ורך מבפנים",
-        cat: "מאפים",
-        ing: "קמח",
-        diet: ["צמחוני"],
-        prepTime: "30 דקות",
-        cookTime: "20 דקות",
-        totalTime: "50 דקות",
-        srv: 8,
-        diff: "בינוני",
-        img: "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=800",
-        ingr: ["4 כוסות קמח", "1 כוס מים פושרים", "1 כפית מלח", "1 כפית סוכר", "200 גרם מרגרינה רכה", "1 כפית שמרים יבשים"],
-        inst: ["מערבבים קמח, מים, מלח, סוכר ושמרים.", "לשים 10 דקות עד לבצק חלק.", "מחלקים ל-8 כדורים, מתפיחים שעה.", "מרדדים כל כדור ומורחים מרגרינה.", "מקפלים לריבוע ומרדדים שוב.", "אופים במחבת יבשה משני הצדדים."],
-        tips: ["💡 חשוב שהמרגרינה תהיה רכה", "💡 מגישים עם גבינות וביצה"]
-    },
-    {
-        id: 48,
-        title: "סביח",
-        subtitle: "פיתה עם חציל, ביצה קשה וטחינה",
-        cat: "מנות עיקריות",
-        ing: "חציל",
-        diet: ["צמחוני"],
-        prepTime: "15 דקות",
-        cookTime: "20 דקות",
-        totalTime: "35 דקות",
-        srv: 4,
-        diff: "קל",
-        img: "https://images.unsplash.com/photo-1561651823-34feb02250e4?w=800",
-        ingr: ["4 פיתות", "2 חצילים גדולים", "4 ביצים קשות", "1 כוס טחינה גולמית", "סלט ירקות קצוץ", "חמוצים", "עמבה", "פטרוזיליה", "שמן לטיגון"],
-        inst: ["פורסים חצילים וטוגנים עד הזהבה.", "מבשלים ביצים קשות.", "מכינים טחינה עם מים ולימון.", "פותחים פיתה ומורחים טחינה.", "מוסיפים חציל, ביצה פרוסה וסלט.", "מוסיפים עמבה וחמוצים."],
-        tips: ["💡 העמבה היא המפתח לטעם אותנטי", "💡 אפשר לאפות את החציל במקום לטגן"]
-    },
-    {
-        id: 49,
-        title: "מרק עדשים כתומות",
-        subtitle: "מרק קטיפתי ומזין",
-        cat: "מרקים",
-        ing: "עדשים",
-        diet: ["טבעוני", "ללא גלוטן"],
-        prepTime: "10 דקות",
-        cookTime: "30 דקות",
-        totalTime: "40 דקות",
-        srv: 6,
-        diff: "קל",
-        img: "https://images.unsplash.com/photo-1547592166-23ac45744acd?w=800",
-        ingr: ["2 כוסות עדשים כתומות", "1 בצל גדול", "3 גזרים", "2 תפוחי אדמה", "1 כפית כמון", "½ כפית כורכום", "6 כוסות מרק ירקות", "מלח ופלפל", "שמן זית"],
-        inst: ["מטגנים בצל קצוץ עד הזהבה.", "מוסיפים גזר ותפוא קצוצים.", "מוסיפים עדשים ותבלינים.", "מוסיפים מרק ומבשלים 25 דקות.", "מחליקים בבלנדר.", "מתבלים ומגישים עם שמן זית."],
-        tips: ["💡 אפשר להוסיף קוביות לחם קלוי", "💡 נשמר במקרר עד 5 ימים"]
-    },
-    {
-        id: 50,
-        title: "שניצל פרגית",
-        subtitle: "שניצל זהוב ופריך",
-        cat: "מנות עיקריות",
-        ing: "עוף",
-        diet: [],
-        prepTime: "15 דקות",
-        cookTime: "15 דקות",
-        totalTime: "30 דקות",
-        srv: 4,
-        diff: "קל",
-        img: "https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?w=800",
-        ingr: ["600 גרם פרגיות", "2 ביצים", "1 כוס פירורי לחם", "½ כוס קמח", "1 כפית פפריקה", "½ כפית שום אבקה", "מלח ופלפל", "שמן לטיגון עמוק"],
-        inst: ["דופקים את הפרגיות לעובי אחיד.", "מכינים תחנות: קמח, ביצה, פירורים.", "מתבלים את הקמח והפירורים.", "מעבירים כל חתיכה בתחנות.", "מטגנים בשמן עמוק עד הזהבה.", "מנגבים על נייר סופג."],
-        tips: ["💡 השמן צריך להיות ב-170 מעלות", "💡 אפשר להכין גם בתנור"]
-    },
-    {
-        id: 51,
         title: "סלט כרוב סגול",
         subtitle: "סלט צבעוני ופריך",
         cat: "סלטים",
@@ -942,7 +857,7 @@ const newRecipes = [
         tips: ["💡 עדיף להכין שעה לפני ההגשה", "💡 אפשר להחליף מיונז בטחינה"]
     },
     {
-        id: 52,
+        id: 47,
         title: "עוגת גזר",
         subtitle: "עוגה לחה עם ציפוי גבינת שמנת",
         cat: "קינוחים",
@@ -959,24 +874,7 @@ const newRecipes = [
         tips: ["💡 העוגה משתפרת ביום השני", "💡 אפשר להוסיף אגוזים לבלילה"]
     },
     {
-        id: 53,
-        title: "קציצות דגים מרוקאיות",
-        subtitle: "קציצות ברוטב עגבניות חריף",
-        cat: "מנות עיקריות",
-        ing: "דג",
-        diet: ["ללא גלוטן"],
-        prepTime: "25 דקות",
-        cookTime: "30 דקות",
-        totalTime: "55 דקות",
-        srv: 6,
-        diff: "בינוני",
-        img: "https://images.unsplash.com/photo-1534939561126-855b8675edd7?w=800",
-        ingr: ["700 גרם פילה דג טחון", "1 בצל מגורר", "¼ כוס כוסברה קצוצה", "1 כפית כמון", "½ כפית פפריקה חריפה", "400 גרם עגבניות מרוסקות", "4 שיני שום", "פלפל חריף", "מלח"],
-        inst: ["מערבבים דג עם בצל וכוסברה.", "מתבלים ויוצרים קציצות.", "מכינים רוטב מעגבניות, שום ותבלינים.", "מניחים קציצות ברוטב רותח.", "מבשלים בחום נמוך 25 דקות.", "מגישים עם לחם לטיבול."],
-        tips: ["💡 אפשר להשתמש בכל סוג דג לבן", "💡 הרוטב צריך להיות חריף"]
-    },
-    {
-        id: 54,
+        id: 48,
         title: "פול מדמס",
         subtitle: "פול מצרי עם שמן זית וביצה",
         cat: "ארוחת בוקר",
@@ -993,7 +891,7 @@ const newRecipes = [
         tips: ["💡 מגישים עם פיתה חמה", "💡 אפשר להוסיף טחינה"]
     },
     {
-        id: 55,
+        id: 49,
         title: "מנסף ירדני",
         subtitle: "אורז עם בשר כבש ויוגורט מבושל",
         cat: "מנות עיקריות",
@@ -1010,24 +908,7 @@ const newRecipes = [
         tips: ["💡 חשוב לערבב את הג'מיד כל הזמן", "💡 מגישים על מגש גדול"]
     },
     {
-        id: 56,
-        title: "בורקס גבינה",
-        subtitle: "בורקס פריך במילוי גבינות",
-        cat: "מאפים",
-        ing: "גבינה צהובה",
-        diet: ["צמחוני"],
-        prepTime: "20 דקות",
-        cookTime: "25 דקות",
-        totalTime: "45 דקות",
-        srv: 12,
-        diff: "קל",
-        img: "https://images.unsplash.com/photo-1583302355372-e5fca35c478a?w=800",
-        ingr: ["500 גרם בצק עלים", "250 גרם גבינה בולגרית", "200 גרם גבינה צהובה מגוררת", "2 ביצים", "פטרוזיליה קצוצה", "1 ביצה לציפוי", "שומשום"],
-        inst: ["מערבבים גבינות, ביצים ופטרוזיליה.", "חותכים בצק לריבועים.", "ממלאים ומקפלים למשולשים.", "מניחים על תבנית משומנת.", "מורחים ביצה ומפזרים שומשום.", "אופים ב-180 מעלות 25 דקות."],
-        tips: ["💡 אפשר להקפיא לפני אפייה", "💡 מגישים חם עם ביצה קשה"]
-    },
-    {
-        id: 57,
+        id: 50,
         title: "תבשיל פרגיות וזיתים",
         subtitle: "תבשיל ים תיכוני ארומטי",
         cat: "מנות עיקריות",
@@ -1044,7 +925,7 @@ const newRecipes = [
         tips: ["💡 מעולה עם פולנטה או פיורה", "💡 אפשר להוסיף לימון כבוש"]
     },
     {
-        id: 58,
+        id: 51,
         title: "כנאפה",
         subtitle: "קינוח ערבי מסורתי עם גבינה",
         cat: "קינוחים",
@@ -1061,7 +942,7 @@ const newRecipes = [
         tips: ["💡 הסירופ חייב להיות קר על כנאפה חמה", "💡 מגישים מיד"]
     },
     {
-        id: 59,
+        id: 52,
         title: "סלט פטריות חם",
         subtitle: "פטריות מוקפצות עם שום ועשבים",
         cat: "תוספות",
@@ -1078,7 +959,7 @@ const newRecipes = [
         tips: ["💡 חשוב לא לצופף את המחבת", "💡 מעולה על סטייק או פסטה"]
     },
     {
-        id: 60,
+        id: 53,
         title: "לחמג'ון",
         subtitle: "פיצה ארמנית עם בשר טחון",
         cat: "מאפים",
@@ -1098,7 +979,6 @@ const newRecipes = [
 
 // Merge with existing recipes
 recipes.push(...newRecipes);
-
 const cats = ["הכל", "ארוחת בוקר", "מנות עיקריות", "תוספות", "סלטים", "קינוחים", "מרקים", "מאפים"];
 const ings = ["הכל", "ביצים", "עוף", "בשר", "דג", "ירקות", "פסטה", "אורז", "גבינה", "שוקולד", "קמח", "קטניות", "אבוקדו", "עגבניות", "שיבולת שועל"];
 const diets = ["הכל", "טבעוני", "צמחוני", "ללא גלוטן", "בריא"];
