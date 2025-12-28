@@ -12,6 +12,24 @@
     <meta property="og:image" content="/hero-banner.png">
     <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        // טעינת מתכונים מקובץ JSON
+        let allRecipes = [];
+        fetch('data/recipes.json')
+            .then(response => response.json())
+            .then(data => {
+                allRecipes = data;
+                window.dispatchEvent(new Event('recipesLoaded'));
+            })
+            .catch(err => {
+                console.error('Error loading recipes:', err);
+                // Fallback to recipes_data.js if JSON fails
+                if (typeof recipes !== 'undefined') {
+                    allRecipes = recipes;
+                }
+            });
+    </script>
+    <script src="recipes_data.js"></script>
     <script src="features.js" defer></script>
     <script src="schema-generator.js" defer></script>
     <style>
@@ -995,7 +1013,7 @@ const newRecipes = [
     {
         id: 55,
         title: "מקלובה",
-        subtitle: "תבשיל אורז פלסטיני הפוך",
+        subtitle: "תבשיל אורז ערבי הפוך",
         cat: "מנות עיקריות",
         ing: "אורז",
         diet: ["ללא גלוטן"],
