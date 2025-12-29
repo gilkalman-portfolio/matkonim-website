@@ -689,7 +689,12 @@ function toggleFav(id) {
     render();
 }
 
-render();
+// Wait for recipes to load before rendering
+if (allRecipes.length > 0) {
+    render();
+} else {
+    window.addEventListener('recipesLoaded', render);
+}
     </script>
     <link rel="stylesheet" href="./compliance-styles.css">
     <script src="./cookie-consent.js"></script>
